@@ -1,4 +1,5 @@
 using Booking.Domain.Abstractions;
+using Booking.Domain.Users.Events;
 
 namespace Booking.Domain.Users;
 
@@ -22,6 +23,8 @@ public sealed class User : Entity
     {
         var user = new User(Guid.NewGuid(), firstName, lastName, email);
 
+        user.RaiseDomainEvent(new UserCreatedDomainEvent(user.Id));
+        
         return user;
     }
 }
