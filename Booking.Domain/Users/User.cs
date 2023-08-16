@@ -5,7 +5,8 @@ namespace Booking.Domain.Users;
 
 public sealed class User : Entity
 {
-    private User(Guid id, FirstName firstName, LastName lastName, Email email) 
+    private User(
+        Guid id, FirstName firstName, LastName lastName, Email email) 
         : base(id)
     {
         FirstName = firstName;
