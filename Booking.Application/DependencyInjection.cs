@@ -1,3 +1,4 @@
+using Booking.Application.Abstractions.Behaviours;
 using Booking.Domain.Bookings;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +11,8 @@ public static class DependencyInjection
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly);
+
+            configuration.AddOpenBehavior(typeof(LoggingBehaviour<,>));
         });
 
         services.AddTransient<PricingService>();
