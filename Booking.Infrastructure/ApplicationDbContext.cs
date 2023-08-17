@@ -1,3 +1,4 @@
+using Booking.Application.Exceptions;
 using Booking.Domain.Abstractions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -23,11 +24,18 @@ public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var result = await base.SaveChangesAsync(cancellationToken);
+        try
+        {
+            var result = await base.SaveChangesAsync(cancellationToken);
 
-        await PublishDomainEventsAsync();
+            await PublishDomainEventsAsync();  
         
-        return result;
+            return result;
+        }
+        catch (DbUpdateConcurrencyException exception)
+        {
+            throw new ConcurrencyException("Concurrency exception occured.", exception);
+        }
     }
 
     private async Task PublishDomainEventsAsync()
