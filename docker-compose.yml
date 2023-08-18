@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  booking.api:
+    image: ${DOCKER_REGISTRY-}bookingapi
+    build:
+      context: .
+      dockerfile: Booking.Api/Dockerfile
