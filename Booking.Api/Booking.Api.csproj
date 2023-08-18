@@ -11,6 +11,10 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.9" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -26,5 +30,6 @@
       <ProjectReference Include="..\Booking.Application\Booking.Application.csproj" />
       <ProjectReference Include="..\Booking.Infrastructure\Booking.Infrastructure.csproj" />
     </ItemGroup>
+
 
 </Project>
