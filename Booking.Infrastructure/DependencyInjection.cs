@@ -1,4 +1,5 @@
 using Booking.Application.Abstractions.Clock;
+using Booking.Application.Abstractions.Data;
 using Booking.Application.Abstractions.Email;
 using Booking.Domain.Abstractions;
 using Booking.Domain.Apartments;
@@ -42,6 +43,9 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());        
         
+        services.AddSingleton<ISqlConnectionFactory>(_ =>
+            new SqlConnectionFactory(connectionString));
+
         SqlMapper.AddTypeHandler(new DateOnlyTypeHandler());
         
         return services;
