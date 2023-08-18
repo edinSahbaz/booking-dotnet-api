@@ -1,10 +1,9 @@
 ﻿using Booking.Application.Abstractions.Clock;
 using Booking.Application.Abstractions.Messaging;
-using Booking.Application.Bookings.ConfirmBooking;
 using Booking.Domain.Abstractions;
 using Booking.Domain.Bookings;
 
-namespace Bookify.Application.Bookings.ConfirmBooking;
+namespace Booking.Application.Bookings.ConfirmBooking;
 
 internal sealed class ConfirmBookingCommandHandler : ICommandHandler<ConfirmBookingCommand>
 {
