@@ -21,3 +21,16 @@ services:
       - ./containers/database:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+        
+  booking.idp:
+    image: jboss/keycloak:latest
+    container_name: Booking.Identity
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_IMPORT=/tmp/booking-realm-export.json
+    volumes:
+      - ./containers/identity:/opt/jboss/keycloak/standalone/data
+      - ./.files/booking-realm-export.json:/tmp/booking-realm-export.json
+    ports:
+      - "18080:8080"
