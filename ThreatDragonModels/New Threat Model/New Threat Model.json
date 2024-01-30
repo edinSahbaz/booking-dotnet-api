@@ -1,0 +1,31 @@
+{
+  "version": "2.1.3",
+  "summary": {
+    "title": "New Threat Model",
+    "owner": "Edin Šahbaz",
+    "description": "Booking API project implemented using Clean Architecture principles and ASP.NET Core.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Edin Šahbaz"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "System overview",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.1.3",
+        "cells": [],
+        "description": "System overview"
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "Edin Šahbaz",
+    "threatTop": 0
+  }
+}
