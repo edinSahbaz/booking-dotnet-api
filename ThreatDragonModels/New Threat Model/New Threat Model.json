@@ -365,11 +365,13 @@
                 "text": "Database"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -384,11 +386,38 @@
               "outOfScope": false,
               "reasonOutOfScope": "",
               "isALog": false,
-              "storesCredentials": false,
+              "storesCredentials": true,
               "isEncrypted": false,
               "isSigned": false,
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "626ee2e0-48bc-49ea-b6a1-f3e735513493",
+                  "title": "Unauthorised access",
+                  "status": "Mitigated",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "An attacker could make an query call on the DB,",
+                  "mitigation": "Require all queries to be authenticated.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": ""
+                },
+                {
+                  "id": "d009c00a-cc84-4e86-bbc0-7edbdfe4ae2a",
+                  "title": "Credentials should be encrypted",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "The Web Application Config stores credentials used  by the Web App to access the message queue. These could be stolen by an attacker and used to read confidential data or place poison message on the queue.",
+                  "mitigation": "The credentials in DB should be encrypted.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": ""
+                }
+              ]
             }
           }
         ],
@@ -397,6 +426,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "Edin Šahbaz",
-    "threatTop": 0
+    "threatTop": 2
   }
 }
