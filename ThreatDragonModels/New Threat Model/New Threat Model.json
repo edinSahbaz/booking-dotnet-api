@@ -23,26 +23,6 @@
         "cells": [
           {
             "position": {
-              "x": 450,
-              "y": 120.00000000000065
-            },
-            "size": {
-              "width": 360,
-              "height": 180
-            },
-            "shape": "trust-boundary-box",
-            "id": "9861311e-2ef4-426f-89a2-c21b69aee226",
-            "zIndex": -1,
-            "data": {
-              "type": "tm.BoundaryBox",
-              "name": "Trust Boundary",
-              "description": "",
-              "isTrustBoundary": true,
-              "hasOpenThreats": false
-            }
-          },
-          {
-            "position": {
               "x": 200,
               "y": 330
             },
@@ -62,8 +42,8 @@
             },
             "visible": true,
             "shape": "process",
-            "id": "9671a668-c400-43a5-9616-2c5cc6e0f712",
             "zIndex": 1,
+            "id": "9671a668-c400-43a5-9616-2c5cc6e0f712",
             "data": {
               "type": "tm.Process",
               "name": "API",
@@ -144,6 +124,9 @@
               "threats": []
             },
             "id": "979cedda-3c33-4b0f-8d5a-e462b10d902d",
+            "labels": [
+              "Web request (HTTPS)"
+            ],
             "source": {
               "x": 270,
               "y": 90
@@ -160,9 +143,6 @@
                 "x": 300,
                 "y": 240
               }
-            ],
-            "labels": [
-              "Web request (HTTPS)"
             ]
           },
           {
@@ -197,6 +177,9 @@
               "threats": []
             },
             "id": "bb6df1fd-6447-4767-a36f-eabcdb0e0e52",
+            "labels": [
+              "Web response (HTTPS)"
+            ],
             "source": {
               "cell": "9671a668-c400-43a5-9616-2c5cc6e0f712"
             },
@@ -212,9 +195,6 @@
                 "x": 130,
                 "y": 270
               }
-            ],
-            "labels": [
-              "Web response (HTTPS)"
             ]
           },
           {
@@ -249,6 +229,9 @@
               "threats": []
             },
             "id": "a6519f39-047c-498d-9d24-6102cfc9885b",
+            "labels": [
+              "Queries"
+            ],
             "source": {
               "cell": "9671a668-c400-43a5-9616-2c5cc6e0f712"
             },
@@ -256,9 +239,6 @@
               "x": 580,
               "y": 270
             },
-            "labels": [
-              "Queries"
-            ],
             "vertices": [
               {
                 "x": 560,
@@ -298,14 +278,43 @@
               "threats": []
             },
             "id": "0ec1f533-af9d-4ad1-aeac-d526c6280a6e",
+            "labels": [
+              "Query results"
+            ],
             "source": {
               "cell": "354822df-fd0e-4b90-b3c3-ddee66663ca5"
             },
             "target": {
               "cell": "9671a668-c400-43a5-9616-2c5cc6e0f712"
+            }
+          },
+          {
+            "shape": "trust-boundary-curve",
+            "width": 200,
+            "height": 100,
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Boundary",
+              "name": "",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false
             },
-            "labels": [
-              "Query results"
+            "id": "6ba094c3-5b73-4396-8611-cc6b453beb0c",
+            "source": {
+              "x": 420,
+              "y": 160
+            },
+            "target": {
+              "x": 720,
+              "y": 360
+            },
+            "vertices": [
+              {
+                "x": 480,
+                "y": 290
+              }
             ]
           },
           {
@@ -329,8 +338,8 @@
             },
             "visible": true,
             "shape": "actor",
-            "id": "94022280-ecc7-4089-a864-afe5a492cb42",
             "zIndex": 11,
+            "id": "94022280-ecc7-4089-a864-afe5a492cb42",
             "data": {
               "type": "tm.Actor",
               "name": "Browser",
@@ -366,8 +375,8 @@
             },
             "visible": true,
             "shape": "store",
-            "id": "354822df-fd0e-4b90-b3c3-ddee66663ca5",
             "zIndex": 12,
+            "id": "354822df-fd0e-4b90-b3c3-ddee66663ca5",
             "data": {
               "type": "tm.Store",
               "name": "Database",
