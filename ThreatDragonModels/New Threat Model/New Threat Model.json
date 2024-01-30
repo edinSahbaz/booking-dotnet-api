@@ -35,8 +35,8 @@
                 "text": "API"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -51,8 +51,22 @@
               "outOfScope": false,
               "reasonOutOfScope": "",
               "privilegeLevel": "",
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "f280ea03-1a26-4fca-8d89-56874bcdedec",
+                  "title": "No Rate Limiting Implemented",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Denial of service",
+                  "description": "API has no Rate Limiting implemented, opening the possibility for a DoS attack.",
+                  "mitigation": "Implement IP based rate limiting.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": ""
+                }
+              ]
             }
           },
           {
@@ -96,7 +110,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -112,7 +127,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Web request (HTTPS)",
+              "name": "Web request (HTTP)",
               "description": "",
               "outOfScope": false,
               "isBidirectional": false,
@@ -120,12 +135,26 @@
               "protocol": "",
               "isEncrypted": false,
               "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "78b02e71-79ba-435e-9466-d3ff873fbea7",
+                  "title": "Data flow should use HTTPS",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "These requests are made over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTPS. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": ""
+                }
+              ]
             },
             "id": "979cedda-3c33-4b0f-8d5a-e462b10d902d",
             "labels": [
-              "Web request (HTTPS)"
+              "Web request (HTTP)"
             ],
             "source": {
               "x": 270,
@@ -149,7 +178,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -165,7 +195,7 @@
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Web response (HTTPS)",
+              "name": "Web response (HTTP)",
               "description": "",
               "outOfScope": false,
               "isBidirectional": false,
@@ -173,12 +203,26 @@
               "protocol": "",
               "isEncrypted": false,
               "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "90862e48-82bc-4c2e-bd7e-1738dcea211e",
+                  "title": "Data flow should use HTTPS",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "These requests are made over the public internet and could be intercepted by an attacker.",
+                  "mitigation": "The requests should require HTTPS. This will provide confidentiality and integrity. HTTP should not be supported.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": ""
+                }
+              ]
             },
             "id": "bb6df1fd-6447-4767-a36f-eabcdb0e0e52",
             "labels": [
-              "Web response (HTTPS)"
+              "Web response (HTTP)"
             ],
             "source": {
               "cell": "9671a668-c400-43a5-9616-2c5cc6e0f712"
@@ -201,7 +245,8 @@
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -225,8 +270,22 @@
               "protocol": "",
               "isEncrypted": false,
               "isPublicNetwork": false,
-              "hasOpenThreats": false,
-              "threats": []
+              "hasOpenThreats": true,
+              "threats": [
+                {
+                  "id": "ee799704-cdcf-4074-bb3e-8317ec901b1e",
+                  "title": "Queries not sanitized",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Queries are not sanitized, meaning the SQL Injection can be performed.",
+                  "mitigation": "User queries should be sanitized properly on the backend.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": ""
+                }
+              ]
             },
             "id": "a6519f39-047c-498d-9d24-6102cfc9885b",
             "labels": [
@@ -426,6 +485,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "Edin Šahbaz",
-    "threatTop": 2
+    "threatTop": 6
   }
 }
