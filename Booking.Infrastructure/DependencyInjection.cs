@@ -7,11 +7,13 @@ using Booking.Domain.Apartments;
 using Booking.Domain.Bookings;
 using Booking.Domain.Users;
 using Booking.Infrastructure.Authentication;
+using Booking.Infrastructure.Authorization;
 using Booking.Infrastructure.Clock;
 using Booking.Infrastructure.Data;
 using Booking.Infrastructure.Email;
 using Booking.Infrastructure.Repositories;
 using Dapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using AuthenticationOptions = Booking.Infrastructure.Authentication.AuthenticationOptions;
 using AuthenticationService = Booking.Infrastructure.Authentication.AuthenticationService;
+using IAuthenticationService = Booking.Application.Abstractions.Authentication.IAuthenticationService;
 
 namespace Booking.Infrastructure;
 
@@ -35,6 +38,8 @@ public static class DependencyInjection
         AddPersistence(services, configuration);
 
         AddAuthentication(services, configuration);
+
+        AddAuthorization(services);
 
         return services;
     }
@@ -96,5 +101,12 @@ public static class DependencyInjection
         services.AddHttpContextAccessor();
 
         services.AddScoped<IUserContext, UserContext>();
+    }
+
+    private static void AddAuthorization(IServiceCollection services)
+    {
+        services.AddScoped<AuthorizationService>();
+
+        services.AddTransient<IClaimsTransformation, CustomClaimsTransformation>();
     }
 }
