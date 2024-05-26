@@ -1,3 +1,4 @@
+using Booking.Application.Abstractions.Authentication;
 using Booking.Application.Abstractions.Clock;
 using Booking.Application.Abstractions.Data;
 using Booking.Application.Abstractions.Email;
@@ -15,6 +16,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using AuthenticationOptions = Booking.Infrastructure.Authentication.AuthenticationOptions;
+using AuthenticationService = Booking.Infrastructure.Authentication.AuthenticationService;
 
 namespace Booking.Infrastructure;
 
@@ -35,9 +39,19 @@ public static class DependencyInjection
             .AddJwtBearer();
 
         services.Configure<AuthenticationOptions>(configuration.GetSection("Authentication"));
-
-        services.ConfigureOptions<JwtBearerOptionsSetup>();
         
+        services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+        services.Configure<KeycloakOptions>(configuration.GetSection("Keycloak"));
+
+        services.AddHttpClient<IAuthenticationService, AuthenticationService>((serviceProvider, httpClient) =>
+            {
+                var keycloakOptions = serviceProvider.GetRequiredService<IOptions<KeycloakOptions>>().Value;
+
+                httpClient.BaseAddress = new Uri(keycloakOptions.AdminUrl);
+            })
+            .AddHttpMessageHandler<AdminAuthorizationDelegatingHandler>();
+
         return services;
     }
 
