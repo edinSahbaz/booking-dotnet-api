@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Booking.Api.Controllers.Bookings;
 
 [Authorize]
-[Route("api/bookings")]
 [ApiController]
+[Route("api/bookings")]
 public class BookingsController : ControllerBase
 {
     private readonly ISender _sender;
