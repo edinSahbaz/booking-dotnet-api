@@ -1,6 +1,7 @@
 using Booking.Application.Users.GetLoggedInUser;
 using Booking.Application.Users.LogInUser;
 using Booking.Application.Users.RegisterUser;
+using Booking.Infrastructure.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
@@ -19,8 +20,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("me")]
-    [Authorize(Roles = Roles.Registered)]
-    [Authorize(Policy = "users:read")]
+    [HasPermission(Permissions.UsersRead)]
     public async Task<IActionResult> GetLoggedInUser(CancellationToken cancellationToken)
     {
         var query = new GetLoggedInUserQuery();
