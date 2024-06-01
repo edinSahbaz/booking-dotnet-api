@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Booking.Application.Bookings.GetBooking;
 using Booking.Application.Bookings.ReserveBooking;
 using MediatR;
@@ -8,7 +9,8 @@ namespace Booking.Api.Controllers.Bookings;
 
 [Authorize]
 [ApiController]
-[Route("api/bookings")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/bookings")]
 public class BookingsController : ControllerBase
 {
     private readonly ISender _sender;

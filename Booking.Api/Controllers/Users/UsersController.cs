@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Booking.Application.Users.GetLoggedInUser;
 using Booking.Application.Users.LogInUser;
 using Booking.Application.Users.RegisterUser;
@@ -9,7 +10,8 @@ using MediatR;
 namespace Booking.Api.Controllers.Users;
 
 [ApiController]
-[Route("api/users")]
+[ApiVersion(ApiVersions.V1)]
+[Route("api/v{version:apiVersion}/users")]
 public class UsersController : ControllerBase
 {
     private readonly ISender _sender;
