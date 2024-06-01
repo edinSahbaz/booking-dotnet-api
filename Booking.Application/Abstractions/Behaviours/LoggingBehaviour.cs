@@ -1,16 +1,19 @@
 using Booking.Application.Abstractions.Messaging;
+using Booking.Domain.Abstractions;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Serilog.Context;
 
 namespace Booking.Application.Abstractions.Behaviours;
 
 public class LoggingBehaviour<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
-    where TRequest: IBaseCommand
+    where TRequest: IBaseRequest
+    where TResponse: Result
 {
-    private readonly ILogger<TRequest> _logger;
+    private readonly ILogger<LoggingBehaviour<TRequest, TResponse>> _logger;
 
-    public LoggingBehaviour(ILogger<TRequest> logger)
+    public LoggingBehaviour(ILogger<LoggingBehaviour<TRequest, TResponse>> logger)
     {
         _logger = logger;
     }
@@ -24,18 +27,28 @@ public class LoggingBehaviour<TRequest, TResponse>
 
         try
         {
-            _logger.LogInformation("Executing command {Command}", name);
+            _logger.LogInformation("Executing request {Request}", name);
 
             var result = await next();
-            
-            _logger.LogInformation("Command {Command} processed successfully", name);
+
+            if (result.IsSuccess)
+            {
+                _logger.LogInformation("Request {Request} processed successfully", name);
+            }
+            else
+            {
+                using (LogContext.PushProperty("Error", result.Error, true))
+                {
+                    _logger.LogError("Request {Request} processed with error", name);
+                }
+            }
 
             return result;
 
         }
         catch (Exception exception)
         {
-            _logger.LogError(exception, "Command {Command} processing failed", name);
+            _logger.LogError(exception, "Request {Request} processing failed", name);
             
             throw;
         }

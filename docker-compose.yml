@@ -34,3 +34,12 @@ services:
       - ./.files/booking-realm-export.json:/opt/keycloak/data/import/realm.json
     ports:
       - "18080:8080"
+        
+  booking-seq:
+    image: datalust/seq:latest
+    container_name: Booking.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5341:5341"
+      - "8081:80"
