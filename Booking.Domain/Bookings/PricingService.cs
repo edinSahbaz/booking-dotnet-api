@@ -33,7 +33,7 @@ public class PricingService
                 currency);
         }
 
-        var totalPrice = Money.Zero();
+        var totalPrice = Money.Zero(currency);
 
         totalPrice += priceForPeriod;
 
@@ -44,10 +44,6 @@ public class PricingService
 
         totalPrice += amenitiesUpCharge;
 
-        return new PricingDetails(
-            priceForPeriod,
-            apartment.CleaningFee,
-            amenitiesUpCharge,
-            totalPrice);
+        return new PricingDetails(priceForPeriod, apartment.CleaningFee, amenitiesUpCharge, totalPrice);
     }
 }

@@ -1,6 +1,8 @@
+using Booking.Application.Abstractions.Authentication;
 using Booking.Application.Abstractions.Data;
 using Booking.Application.Abstractions.Messaging;
 using Booking.Domain.Abstractions;
+using Booking.Domain.Bookings;
 using Dapper;
 
 namespace Booking.Application.Bookings.GetBooking;
@@ -8,10 +10,12 @@ namespace Booking.Application.Bookings.GetBooking;
 internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, BookingResponse>
 {
     private readonly ISqlConnectionFactory _sqlConnectionFactory;
+    private readonly IUserContext _userContext;
 
-    public GetBookingQueryHandler(ISqlConnectionFactory sqlConnectionFactory)
+    public GetBookingQueryHandler(ISqlConnectionFactory sqlConnectionFactory, IUserContext userContext)
     {
         _sqlConnectionFactory = sqlConnectionFactory;
+        _userContext = userContext;
     }
 
 
@@ -47,6 +51,11 @@ internal sealed class GetBookingQueryHandler : IQueryHandler<GetBookingQuery, Bo
                 request.BookingId
             }
         );
+
+        if (booking is null || booking.UserId != _userContext.UserId)
+        {
+            return Result.Failure<BookingResponse>(BookingErrors.NotFound);
+        }
 
         return booking;
     }
