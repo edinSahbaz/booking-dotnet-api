@@ -175,22 +175,8 @@ namespace Booking.Infrastructure.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<int?>("PermissionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("permission_id");
-
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("integer")
-                        .HasColumnName("role_id");
-
                     b.HasKey("Id")
                         .HasName("pk_permissions");
-
-                    b.HasIndex("PermissionId")
-                        .HasDatabaseName("ix_permissions_permission_id");
-
-                    b.HasIndex("RoleId")
-                        .HasDatabaseName("ix_permissions_role_id");
 
                     b.ToTable("permissions", (string)null);
 
@@ -242,6 +228,9 @@ namespace Booking.Infrastructure.Migrations
                     b.HasKey("RoleId", "PermissionId")
                         .HasName("pk_role_permissions");
 
+                    b.HasIndex("PermissionId")
+                        .HasDatabaseName("ix_role_permissions_permission_id");
+
                     b.ToTable("role_permissions", (string)null);
 
                     b.HasData(
@@ -282,10 +271,6 @@ namespace Booking.Infrastructure.Migrations
                         .HasColumnType("character varying(200)")
                         .HasColumnName("last_name");
 
-                    b.Property<int?>("PermissionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("permission_id");
-
                     b.HasKey("Id")
                         .HasName("pk_users");
 
@@ -296,9 +281,6 @@ namespace Booking.Infrastructure.Migrations
                     b.HasIndex("IdentityId")
                         .IsUnique()
                         .HasDatabaseName("ix_users_identity_id");
-
-                    b.HasIndex("PermissionId")
-                        .HasDatabaseName("ix_users_permission_id");
 
                     b.ToTable("users", (string)null);
                 });
@@ -597,25 +579,21 @@ namespace Booking.Infrastructure.Migrations
                         .HasConstraintName("fk_reviews_user_user_id");
                 });
 
-            modelBuilder.Entity("Booking.Domain.Users.Permission", b =>
+            modelBuilder.Entity("Booking.Domain.Users.RolePermission", b =>
                 {
                     b.HasOne("Booking.Domain.Users.Permission", null)
-                        .WithMany("Permissions")
+                        .WithMany()
                         .HasForeignKey("PermissionId")
-                        .HasConstraintName("fk_permissions_permissions_permission_id");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_role_permissions_permissions_permission_id");
 
                     b.HasOne("Booking.Domain.Users.Role", null)
-                        .WithMany("Permissions")
+                        .WithMany()
                         .HasForeignKey("RoleId")
-                        .HasConstraintName("fk_permissions_role_role_id");
-                });
-
-            modelBuilder.Entity("Booking.Domain.Users.User", b =>
-                {
-                    b.HasOne("Booking.Domain.Users.Permission", null)
-                        .WithMany("Users")
-                        .HasForeignKey("PermissionId")
-                        .HasConstraintName("fk_users_permissions_permission_id");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_role_permissions_roles_role_id");
                 });
 
             modelBuilder.Entity("RoleUser", b =>
@@ -633,18 +611,6 @@ namespace Booking.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_role_user_user_users_id");
-                });
-
-            modelBuilder.Entity("Booking.Domain.Users.Permission", b =>
-                {
-                    b.Navigation("Permissions");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Booking.Domain.Users.Role", b =>
-                {
-                    b.Navigation("Permissions");
                 });
 #pragma warning restore 612, 618
         }
