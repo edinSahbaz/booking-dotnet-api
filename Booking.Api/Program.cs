@@ -1,15 +1,26 @@
 using Booking.Api.Extensions;
 using Booking.Api.OpenApi;
 using Booking.Application;
-using Booking.Application.Abstractions.Data;
 using Booking.Infrastructure;
-using Dapper;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var AllowSpecificOrigins = "AllowAccess";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: AllowSpecificOrigins,
+        policy =>
+        {
+            policy
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
 
 builder.Host.UseSerilog((context, configuration) => 
     configuration.ReadFrom.Configuration(context.Configuration));
@@ -58,6 +69,15 @@ app.UseCustomExceptionHandler();
 app.UseAuthentication();
 
 app.UseAuthorization();
+
+app.UseCors(AllowSpecificOrigins);
+app.UseCors(builder =>
+{
+    builder
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(origin => true);
+});
 
 app.MapControllers();
 
