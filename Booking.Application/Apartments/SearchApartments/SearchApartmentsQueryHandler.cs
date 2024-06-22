@@ -1,5 +1,6 @@
 using Booking.Application.Abstractions.Data;
 using Booking.Application.Abstractions.Messaging;
+using Booking.Application.Apartments.Common;
 using Booking.Domain.Abstractions;
 using Booking.Domain.Bookings;
 using Dapper;

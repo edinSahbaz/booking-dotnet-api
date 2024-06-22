@@ -1,4 +1,4 @@
-﻿namespace Booking.Application.Apartments.SearchApartments;
+﻿namespace Booking.Application.Apartments.Common;
 
 public sealed class ApartmentResponse
 {
